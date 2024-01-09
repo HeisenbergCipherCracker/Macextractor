@@ -25,22 +25,24 @@ class Requester:
     def __init__(self) -> None:
         self._extractor = extract_the_mac()
         self._macsaddrr = [line for line in self._extractor]
-        self.url = "https://www.ipchecktool.com/tool/macfinder?oui=56%3A72%3A59%3AD5%3A3C%3A7B&page=1"
+        self.url = url = "https://api.macvendors.com/%s"
         self._request = None
-        self.failed_response = "The specified MAC address or manufacturer was not found in the database."
+        self.failed_response = "The MAC address does not belong to any registered block."
+        self.succed = "has been assigned by the"
         self._valids = []
 
-    def _validate_requests_for_mac_address(self, value):
+    def _validate_requests_for_mac_address(self):
         try:
             logger.info("starting")
             valid_macs = []
 
-            for _macadrr in value:
-                self._request = requests.post(self.url, data= _macadrr)
-                logger.info("testing %s" % _macadrr)
-                if not self.failed_response in self._request.text:
+            for _macadrr in self._extractor:
+                self._request = requests.get(self.url%_macadrr)
+                logger.debug("testing %s" % _macadrr)
+                if self._request.status_code == 200:
+                    logger.info("mac address: %s is valid!!!"%_macadrr)
                     settings.FOUND_MAC = True
-                    logger.info("got the target")
+                    logger.info("macaddress is valid")
                     valid_macs.append(_macadrr)
 
             return valid_macs
@@ -49,19 +51,8 @@ class Requester:
             logger.error(ex)
 
     def get_macs(self):
-        valid_macs = self._validate_requests_for_mac_address(self._macsaddrr)
-
-        # Write valid MAC addresses to a CSV file
-        csv_file_path = "valid_mac.csv"
-        with open(csv_file_path, mode='w', newline='') as csvfile:
-            csv_writer = csv.writer(csvfile)
-            csv_writer.writerow(['Valid MAC Addresses'])  # Write header
-
-            for mac in valid_macs:
-                csv_writer.writerow([mac])
-
-        return valid_macs
+        pass
 
 obj = Requester()
-req = obj.get_macs()
+req = obj._validate_requests_for_mac_address()
 print(req)
