@@ -1,4 +1,4 @@
-def extract_the_mac(file_path="extracted.txt"):
+def extract_the_mac(file_path="/Users/alimirmohammad/Macextractor/filecaps/extracted.txt"):
     unique_macs = set()
 
     try:
