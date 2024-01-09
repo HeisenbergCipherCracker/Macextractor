@@ -1,0 +1,1 @@
+steghide embed -cf xxxxx -ef cxxxxxx

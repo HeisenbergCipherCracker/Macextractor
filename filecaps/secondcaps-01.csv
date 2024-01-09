@@ -1,0 +1,8 @@
+
+BSSID, First time seen, Last time seen, channel, Speed, Privacy, Cipher, Authentication, Power, # beacons, # IV, LAN IP, ID-length, ESSID, Key
+A8:BD:27:D4:41:01, 2024-01-08 12:01:04, 2024-01-08 12:15:28, 11, 260, WPA2, CCMP, MGT, -86,      966,       71,   0.  0.  0.  0,   7, YRDSB-S, 
+
+Station MAC, First time seen, Last time seen, Power, # packets, BSSID, Probed ESSIDs
+6E:19:C1:3F:AA:24, 2024-01-08 12:06:06, 2024-01-08 12:06:14, -67,       67, A8:BD:27:D4:41:01,
+92:37:A0:FD:7B:CD, 2024-01-08 12:15:26, 2024-01-08 12:15:28, -61,       45, A8:BD:27:D4:41:01,
+
